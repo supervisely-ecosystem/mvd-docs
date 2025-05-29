@@ -59,8 +59,6 @@ Before training a NN model, you need to annotate your Input Project. We recommen
 
 Annotation format: The annotations should contain the mouse actions (Head/Body Twitch, Self-Grooming) represented as Tags. Each tag has a start time and end time, where the action is happening. You don't need to manually annotate bounding boxes around the mouse, because our mouse detector will do it at the preprocessing stage.
 
-![Annotate video files](/assets/annotating.png)
-
 ### 3. Preprocessing
 
 When you have your data and annotations ready, you can start preprocessing your data for training. The preprocessing is done by the **[Preprocess Data for Mouse Action Recognition](https://ecosystem.supervisely.com/apps/preprocess-data-for-mouse-project)** app in Supervisely and includes the following procedures:
