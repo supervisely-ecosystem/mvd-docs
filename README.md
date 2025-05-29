@@ -34,6 +34,13 @@ The Supervisely Team focused on findint the optimal solution that can be used to
 
 The complete worfkflow of the solution contains the several steps, each of them is described in the corresponding section below. The solution is implemented using the Supervisely platform and its features, such as video frames extraction, object detection, training models, and analyzing the results.
 
+Table of Contents:
+1. [Import Data](#1-import-data)
+2. [Annotation](#2-annotation)
+3. [Preprocessing](#3-preprocessing)
+4. [Train & Evaluation](#4-train--evaluation)
+5. [Inference](#5-inference)
+
 ### 1. Import data
 
 The first step of the solving the task is to import the video files into the Supervisely platform. There are plenty of ways to do that, and all of them described in the [Import](https://docs.supervisely.com/import-and-export/import) section of the Supervisely documentation. In this bcase we'll briefly describe one of the options - manual upload of the data from the local machine.
@@ -46,7 +53,7 @@ If you need to import files from a remote server or from a Cloud Storage, you ca
 
 For this case, the annotations were made in a specific custom format outside of Supervisely platform, so the Supervisely Team developed a [custom script](https://github.com/supervisely-ecosystem/mouse-tests) that can be used to convert and import those annotations into Supervisely platform. The script is written using Supervisely Python SDK and it's possible to implement any custom logic for various custom formats and even wrap this script into a [Supervisely App](https://developer.supervisely.com/app-development/basics/from-script-to-supervisely-app) for more convenient usage.
 
-### 2. Annotate video files
+### 2. Annotation
 
 Before training a NN model, you need to annotate your Input Project. We recommend to annotate your videos in Supervisely, because this way you can annotate precise frames where an action starts and ends, which will help the model learn much better. Also, the labeling tool is very convenient and has a lot of features that will help you annotate your data faster.
 
