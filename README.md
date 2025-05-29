@@ -1,15 +1,15 @@
-# Temporal Action Recongition with MVD
-
-The Supervisely Team is pleased to share one more successfull solution of solving the task of Temporal Action Recognition using the [Masked Video Distillation](https://github.com/ruiwang2021/mvd) model.
+# Temporal Action Localization with MVD
+The Supervisely Team is pleased to share one more successful solution for solving the task of Temporal Action Localization using the [Masked Video Distillation](https://github.com/ruiwang2021/mvd) model.
 
 ## Description
+This project aims to provide an effective automated solution for monitoring behavioral changes in laboratory mice before and after experimental treatments. The system focuses on identifying two key behavioral actions: "Head/Body Twitch" and "Self-Grooming" within video recordings.
 
-The initial goal of the project is to provide an effective solution that can be used to automate the process of monitoring the changes in the behavior of mouse before and after an experimental treatment. To achive this goal, two main actions were identified: "Head/Body Twitch" and "Self-Grooming". The task is to detect and calculate the duration and frequency of these actions in the videos. By comparing the results of the analysis before and after the treatment, it is possible to determine whether the treatment has had a positive or negative effect on the behavior of the mouse.
+The core computer vision task involves Temporal Action Localization - precisely identifying the start and end timestamps of these specific mouse actions in the videos. Once these temporal boundaries are established, researchers can then calculate the duration and frequency of each action type. By comparing the behavioral analysis results from pre-treatment and post-treatment videos, researchers can objectively determine whether the experimental treatment has produced positive, negative, or neutral effects on mouse behavior.
 
 >>> Вставить ссылку на публикацию.
 
 **Data type:** Video  
-**Task types:** Temporal Action Recognition, Object Detection  
+**Task types:** Temporal Action Localization, Object Detection  
 **Used models:** MVD, RT-DETRv2  
 **Pre-processing:** Video frames extraction and sampling, object detection and cropping the frames, trimming the video into segments
 
