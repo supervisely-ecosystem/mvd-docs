@@ -39,8 +39,8 @@ Table of Contents:
 
 The first step of the solving the task is to import the video files into the Supervisely platform. There are plenty of ways to do that, and all of them described in the [Import](https://docs.supervisely.com/import-and-export/import) section of the Supervisely documentation. In this bcase we'll briefly describe one of the options - manual upload of the data from the local machine.
 
-1. Create a new project in Supervisely, name it Input Project. If your workspace is empty, you can just click the Import Data button.
-2. Choose the Videos option in the Type of project section, and click Create.
+1. Create a new project in Supervisely, name it **Input Project**. If your workspace is empty, you can just click the Import Data button.
+2. Choose the **Videos** option in the Type of project section, and click **Create**.
 3. Next, you can drag and drop your video files into the project.
 
 If you need to import files from a remote server or from a Cloud Storage, you can use apps like [Import Videos from Cloud Storage](https://ecosystem.supervisely.com/apps/import-videos-from-cloud-storage) or [Remote Import](https://ecosystem.supervisely.com/apps/remote-import).
@@ -51,9 +51,9 @@ For this case, the annotations were made in a specific custom format outside of 
 
 Before training a NN model, you need to annotate your Input Project. We recommend to annotate your videos in Supervisely, because this way you can annotate precise frames where an action starts and ends, which will help the model learn much better. Also, the labeling tool is very convenient and has a lot of features that will help you annotate your data faster.
 
-Annotation format: The annotations should contain the mouse actions (Head/Body Twitch, Self-Grooming) represented as Tags. Each tag has a start time and end time, where the action is happening. You don't need to manually annotate bounding boxes around the mouse, because our mouse detector will do it at the preprocessing stage.
+Annotation format: The annotations should contain the mouse actions (Head/Body Twitch, Self-Grooming) represented as **Tags**. Each tag has a start time and end time, where the action is happening. You don't need to manually annotate bounding boxes around the mouse, because our mouse detector will do it at the preprocessing stage.
 
-The Supervisely Video Labeling Toolbox provides extensive possibilities for any type of labeling, you can learn more about it in the [Video Labeling Toolbox](https://docs.supervisely.com/labeling/labeling-toolbox/videos-3.0) documentation. In this casem, we'll only need to work with Frame-based Tags, which meants that we're labeling segments of frames in the video for specific actions.
+The Supervisely Video Labeling Toolbox provides extensive possibilities for any type of labeling, you can learn more about it in the [Video Labeling Toolbox](https://docs.supervisely.com/labeling/labeling-toolbox/videos-3.0) documentation. In this case, you only need to work with **Frame-based Tags**, which means that you will label segments of frames in the video for specific actions.
 
 ### Defining the Tags
 
@@ -62,10 +62,10 @@ First of all, you need to add the Tags that we will use for annotating the mouse
 ![Add New Tag](/assets/annotating1.png)
 
 Add the following tags:
-- **Self-Grooming** - this tag will be used to annotate the segments of video where the mouse is grooming itself.
-- **Head/Body TWITCH** - this tag will be used to annotate the segments of video where the mouse is twitching its head or body.
+- **Self-Grooming** - this tag will be used to annotate the segments in a video where the mouse is grooming itself.
+- **Head/Body TWITCH** - this tag will be used to annotate the segments in a video where the mouse is twitching its head or body.
 
-Make sure that the **Scope** of the tags is set to **Frame-based** or **Global and Frame-based** to allow annotating segments of frames in the video. We also recommend to use the **Number** type of the tag value, so you'll be able to specify the number of repeated actions in the segment.
+Make sure that the **Scope** of the tags is set to **Frame-based** or **Global and Frame-based** to allow annotating segments of frames in the video. You can use the **Number** type of the tag value, if you need to specify, for instance, the number of repeated actions in that segment.
 
 ![Tag Properties](/assets/annotating2.png)
 
