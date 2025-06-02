@@ -6,19 +6,19 @@ This project aims to provide an effective automated solution for monitoring beha
 
 The core computer vision task involves Temporal Action Localization - precisely identifying the start and end timestamps of these specific mouse actions in the videos. Once these temporal boundaries are established, researchers can then calculate the duration and frequency of each action type. By comparing the behavioral analysis results from pre-treatment and post-treatment videos, researchers can objectively determine whether the experimental treatment has produced positive, negative, or neutral effects on mouse behavior.
 
-**Data type:** Video  
-**Task types:** Temporal Action Localization, Object Detection  
-**Used models:** MVD, RT-DETRv2  
+**Data type:** Video
+**Task types:** Temporal Action Localization, Object Detection
+**Used models:** [MVD](https://github.com/ruiwang2021/mvd), [RT-DETRv2](https://github.com/lyuwenyu/RT-DETR)
 **Pre-processing:** Video frames extraction and sampling, object detection and cropping the frames, trimming the video into segments
 
 ## Solution Approach
 
 The Supervisely Team focused on finding the optimal solution that can be used to solve this case in the most effective way. The solution is based on the following steps:
 
-1. **Import video files** to the Supervisely platform. For already annotated videos, the initial annotations were made outside of Supervisely in a specific custom format, so the Supervisely Team developed a [custom script](https://github.com/supervisely-ecosystem/mouse_project_upload_videos_with_xlsx) that can be used to convert and import those annotations.
+1. **Import video files** to the Supervisely platform. For already annotated videos, the initial annotations were made outside of Supervisely in a specific custom format, so the Supervisely Team developed a [custom script](https://github.com/supervisely-ecosystem/mouse_project_upload_videos_with_xlsx) that can be used to convert and import these annotations.
 2. **Train Object Detection model** to detect mice using [RT-DETRv2](https://ecosystem.supervisely.com/apps/rt-detrv2/supervisely_integration/train) model. We've generated a dataset using pretrained models before training the mouse detector. The model was evaluated with our [Evaluation Benchmark](https://docs.supervisely.com/neural-networks/model-evaluation-benchmark/object-detection).
-3. **Preprocess video for training** the MVD model using the [Preprocess Data for Mouse Action Recognition](https://ecosystem.supervisely.com/apps/preprocess-data-for-mouse-project) app. The preprocessing includes mouse detection, video frames extraction, trimming videos into segments, and class balancing.
-4. **Train the MVD model** for mouse action recognition using the [Train Mouse Action Recognition Model](https://ecosystem.supervisely.com/apps/mouse-action-recognition/supervisely_integration/train) app. The MVD model is trained on the preprocessed data to recognize mouse actions.
+3. **Preprocess video before training** the Action Recognition model using the [Preprocess Data for Mouse Action Recognition](https://ecosystem.supervisely.com/apps/preprocess-data-for-mouse-project) app. The preprocessing includes mouse detection, video frames extraction, trimming videos into segments, and class balancing.
+4. **Train the Action Recognition model (MVD)** using the [Train Mouse Action Recognition Model](https://ecosystem.supervisely.com/apps/mouse-action-recognition/supervisely_integration/train) app. We've chosen the MVD architecture as the most suitable and accurate model for our specific use case. It's a good trade-off between the hardware/GPU requirements and the model accuracy.
 5. **Evaluation Benchmark** is performed on the test dataset to assess the model's performance. The evaluation includes metrics such as precision, recall, and F1-score.
 6. **Inference** is performed on new videos using the trained MVD model and the mouse detector. The inference is done using the [Mouse Action Recognition](https://ecosystem.supervisely.com/apps/mouse-action-recognition/src/app) app, which processes the videos and predicts the mouse actions.
 
