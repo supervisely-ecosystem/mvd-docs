@@ -77,7 +77,7 @@ When you found the segment corresponding to the mouse action, you can add a new 
 
 ![Add Tag to Video Segment](/assets/annotating3.png)
 
-Make sure, you've selected the **Frame-based** tags, not the **Global** tags, because in this example we're working with the the sequences of frames in the video.  
+Make sure, you've selected the **Frame-based** tags, not the **Global** tags, because in this example we're working with the sequences of frames in the video.  
 If you're using the **Number** type of the tag value, you can also specify the number of repeated actions in the segment.
 
 ![Finish the Tag](/assets/annotating4.png)
