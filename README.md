@@ -53,6 +53,41 @@ Before training a NN model, you need to annotate your Input Project. We recommen
 
 Annotation format: The annotations should contain the mouse actions (Head/Body Twitch, Self-Grooming) represented as Tags. Each tag has a start time and end time, where the action is happening. You don't need to manually annotate bounding boxes around the mouse, because our mouse detector will do it at the preprocessing stage.
 
+The Supervisely Video Labeling Toolbox provides extensive possibilities for any type of labeling, you can learn more about it in the [Video Labeling Toolbox](https://docs.supervisely.com/labeling/labeling-toolbox/videos-3.0) documentation. In this casem, we'll only need to work with Frame-based Tags, which meants that we're labeling segments of frames in the video for specific actions.
+
+### Defining the Tags
+
+First of all, you need to add the Tags that we will use for annotating the mouse actions. To do it, open the Input Project in Supervisely, then switch to the **Definitions** tab, select the **Tags** section, and click the **New Tag** button.
+
+![Add New Tag](/assets/annotating1.png)
+
+Add the following tags:
+- **Self-Grooming** - this tag will be used to annotate the segments of video where the mouse is grooming itself.
+- **Head/Body TWITCH** - this tag will be used to annotate the segments of video where the mouse is twitching its head or body.
+
+Make sure that the **Scope** of the tags is set to **Frame-based** or **Global and Frame-based** to allow annotating segments of frames in the video. We also recommend to use the **Number** type of the tag value, so you'll be able to specify the number of repeated actions in the segment.
+
+![Tag Properties](/assets/annotating2.png)
+
+### Annotating the Videos
+
+Now, when the Tags are defined, you can start annotating the videos. Open any video from the project in Supervisely Video Labeling Toolbox, and find the needed segment of the video using the scalable timeline.  
+
+When you found the segment corresponding to the mouse action, you can add a new Tag by clicking on the corresponding Tag name in the **Definitions** panel. By default, this panel is located on the right side of the screen, but it can be moved to any place you like.
+
+![Add Tag to Video Segment](/assets/annotating3.png)
+
+Make sure, you've selected the **Frame-based** tags, not the **Global** tags, because in this example we're working with the the sequences of frames in the video.  
+If you're using the **Number** type of the tag value, you can also specify the number of repeated actions in the segment.
+
+![Finish the Tag](/assets/annotating4.png)
+
+1 - The beginning of the segment (where the action starts).  
+2 - Current position of the playhead in the video.  
+3 - The **Flag** icon on the timeline, which is used to finish the Tag.  
+
+Navigate to the end of the segment (where the action ends) and click on the **Flag** icon on the timeline. This will finish the Tag and create a segment of frames with the specified action.
+
 ### 3. Preprocessing
 
 When you have your data and annotations ready, you can start preprocessing your data for training. The preprocessing is done by the **[Preprocess Data for Mouse Action Recognition](https://ecosystem.supervisely.com/apps/preprocess-data-for-mouse-project)** app in Supervisely and includes the following procedures:
@@ -133,3 +168,21 @@ docker compose up
 ```
 
 This will automatically pull our pre-built images `supervisely/mvd:inference-1.0.0` and `supervisely/mvd:rtdetrv2-1.0.0` and load your MVD model and the mouse detector in separate containers. After this, the inference will start. This process may take some time. The final predictions will be saved in `inference_script/output` (in case you didn't change the default output path).
+
+### Exporting the data
+
+At any time you can export your assets from the Supervisely platform. It's applied both to the data (video files with annotations) and to the models. There are several ways to download and export the data, that are described in the [Export](https://docs.supervisely.com/import-and-export/export) section of the Supervisely documentation. In this case, we'll briefly describe one of the options - exporting the data from the platform's UI.
+
+#### Exporting the data
+
+To export the video project you can click on the **Three dots** (1) icon on the project, select the **Download** (2) option and choose the needed format (3). We recommend to use the **Supervisely JSON Annotation** format, which will export the project with all annotations and metadata. 
+
+![Export Project](/assets/export1.png)
+
+#### Exporting the models
+
+All of the artifacts that were created during the training process are stored in the Team Files.  
+Note: there's no vendor lock in Supervisely, so you can download the models and use them completely outside of the Supervisely platform, for example, in your own Python scripts or in Docker containers.
+To download the data, go to the **Files** (1) section in the left sidebar, find the needed file or folder (2), right-click on it, and select the **Download** (3) option.
+
+![Export Model](/assets/export2.png)
