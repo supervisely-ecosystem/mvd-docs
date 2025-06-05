@@ -18,7 +18,7 @@ The Supervisely Team focused on finding the optimal solution that can be used to
 1. **Import video files** to the Supervisely platform. For already annotated videos, the initial annotations were made outside of Supervisely in a specific custom format, so the Supervisely Team developed a [custom script](https://github.com/supervisely-ecosystem/mouse_project_upload_videos_with_xlsx) that can be used to convert and import these annotations.
 2. **Train Object Detection model** to detect mice using [RT-DETRv2](https://ecosystem.supervisely.com/apps/rt-detrv2/supervisely_integration/train) model. We've generated a dataset using pretrained models before training the mouse detector. The model was evaluated with our [Evaluation Benchmark](https://docs.supervisely.com/neural-networks/model-evaluation-benchmark/object-detection).
 3. **Preprocess video before training** the Action Recognition model using the [Preprocess Data for Mouse Action Recognition](https://ecosystem.supervisely.com/apps/preprocess-data-for-mouse-project) app. The preprocessing includes mouse detection, video frames extraction, trimming videos into segments, and class balancing.
-4. **Train the Action Recognition model (MVD)** using the [Train Mouse Action Recognition Model](https://ecosystem.supervisely.com/apps/mouse-action-recognition/supervisely_integration/train) app. We've chosen the MVD architecture as the most suitable and accurate model for our specific use case. It's a good trade-off between the hardware/GPU requirements and the model accuracy.
+4. **Train the Action Recognition model (MVD)** using the [Train Mouse Action Recognition Model](https://ecosystem.supervisely.com/apps/mouse-action-recognition/supervisely_integration/train) app. We've chosen the **MVD** architecture as the best choice for our specific use case. It has achieved SOTA performance on common benchmarks and was presented at the CVPR 2023 conference.
 5. **Evaluation Benchmark** is performed on the test dataset to assess the model's performance. The evaluation includes metrics such as precision, recall, and F1-score.
 6. **Inference** is performed on new videos using the trained MVD model and the mouse detector. The inference is done using the [Mouse Action Recognition](https://ecosystem.supervisely.com/apps/mouse-action-recognition/src/app) app, which processes the videos and predicts the mouse actions.
 
@@ -111,6 +111,10 @@ After processing completes, a new project will be created with name **Training D
 ### 4. Train & Evaluation
 
 After preprocessing, you can start training the model. The app **[Train Mouse Action Recognition Model](https://ecosystem.supervisely.com/apps/mouse-action-recognition/supervisely_integration/train)** in Supervisely will help you with this. It will train the [MVD](https://github.com/ruiwang2021/mvd) model for mouse action recognition.
+
+**Why MVD:** After analyzing the latest research papers on action recognition and localization models, we've chosen the **MVD** architecture as the best choice for our specific use case. It has achieved SOTA performance on common benchmarks, such as **Kinetics-400** and **AVA v2.2**, and offers a good trade-off between the hardware requirements and the model accuracy. Additionally, this work was presented at the CVPR'2023 conference.
+
+**DeepSpeed**: MVD training can be configured with DeepSpeed acceleration to optimize GPU memory usage and computational efficiency. This optimization enables training the model on mid-range hardware, such as a single NVIDIA RTX 4090, rather than requiring high-end server GPUs.
 
 #### How to Train
 
