@@ -16,11 +16,11 @@ The core computer vision task involves Temporal Action Localization - precisely 
 The Supervisely Team focused on finding the optimal solution that can be used to solve this case in the most effective way. The solution is based on the following steps:
 
 1. **Import video files** to the Supervisely platform. For already annotated videos, the initial annotations were made outside of Supervisely in a specific custom format, so the Supervisely Team developed a [custom script](https://github.com/supervisely-ecosystem/mouse_project_upload_videos_with_xlsx) that can be used to convert and import these annotations.
-2. **Train Object Detection model** to detect mice using [RT-DETRv2](../../../../../../supervisely-ecosystem/rt-detrv2/supervisely_integration/train) model. We've generated a dataset using pretrained models before training the mouse detector. The model was evaluated with our [Evaluation Benchmark](https://docs.supervisely.com/neural-networks/model-evaluation-benchmark/object-detection).
+2. **Train Object Detection model** to detect mice using [RT-DETRv2](https://ecosystem.supervisely.com/apps/rt-detrv2/supervisely_integration/train) model. We've generated a dataset using pretrained models before training the mouse detector. The model was evaluated with our [Evaluation Benchmark](https://docs.supervisely.com/neural-networks/model-evaluation-benchmark/object-detection).
 3. **Preprocess video before training** the Action Recognition model using the [Preprocess Data for Mouse Action Recognition](../../../../supervisely-ecosystem/preprocess-data-for-mouse-project) app. The preprocessing includes mouse detection, video frames extraction, trimming videos into segments, and class balancing.
-4. **Train the Action Recognition model (MVD)** using the [Train Mouse Action Recognition Model](../../../../../../supervisely-ecosystem/mouse-action-recognition/supervisely_integration/train) app. We've chosen the **MVD** architecture as the best choice for our specific use case. It has achieved SOTA performance on common benchmarks and was presented at the CVPR 2023 conference.
+4. **Train the Action Recognition model (MVD)** using the [Train Mouse Action Recognition Model](https://ecosystem.supervisely.com/apps/mouse-action-recognition/supervisely_integration/train) app. We've chosen the **MVD** architecture as the best choice for our specific use case. It has achieved SOTA performance on common benchmarks and was presented at the CVPR 2023 conference.
 5. **Evaluation Benchmark** is performed on the test dataset to assess the model's performance. The evaluation includes metrics such as precision, recall, and F1-score.
-6. **Inference** is performed on new videos using the trained MVD model and the mouse detector. The inference is done using the [Mouse Action Recognition](../../../../../../supervisely-ecosystem/mouse-action-recognition/src/app) app, which processes the videos and predicts the mouse actions.
+6. **Inference** is performed on new videos using the trained MVD model and the mouse detector. The inference is done using the [Mouse Action Recognition](https://ecosystem.supervisely.com/apps/mouse-action-recognition/src/app) app, which processes the videos and predicts the mouse actions.
 
 ![Solution Approach](/assets/solution-approach.png)
 
@@ -99,7 +99,7 @@ When you have your data and annotations ready, you can start preprocessing your 
 
 #### How to Preprocess Data
 
-1. Deploy a mouse detector. Run the app **[Serve RT-DETRv2](../../../../../../supervisely-ecosystem/rt-detrv2/supervisely_integration/serve)** in Supervisely and deploy our custom model trained for mouse detection task.
+1. Deploy a mouse detector. Run the app **[Serve RT-DETRv2](https://ecosystem.supervisely.com/apps/rt-detrv2/supervisely_integration/serve)** in Supervisely and deploy our custom model trained for mouse detection task.
 2. Run **[Preprocess Data for Mouse Action Recognition](../../../../supervisely-ecosystem/preprocess-data-for-mouse-project)** app in Supervisely, selecting the input project with your original videos and annotations. The input project may have a free structure with nested datasets, or without it.
 3. Follow the instructions in the app. You will need to select the mouse detector you deployed in the first step, and specify the amount of video to train/test split. About 10 full-length videos should be enough for the test dataset.
 4. Run the preprocessing.
@@ -110,7 +110,7 @@ After processing completes, a new project will be created with name **Training D
 
 ### 4. Train & Evaluation
 
-After preprocessing, you can start training the model. The app **[Train Mouse Action Recognition Model](../../../../../../supervisely-ecosystem/mouse-action-recognition/supervisely_integration/train)** in Supervisely will help you with this. It will train the [MVD](https://github.com/ruiwang2021/mvd) model for mouse action recognition.
+After preprocessing, you can start training the model. The app **[Train Mouse Action Recognition Model](https://ecosystem.supervisely.com/apps/mouse-action-recognition/supervisely_integration/train)** in Supervisely will help you with this. It will train the [MVD](https://github.com/ruiwang2021/mvd) model for mouse action recognition.
 
 **Why MVD:** After analyzing the latest research papers on action recognition and localization models, we've chosen the **MVD** architecture as the best choice for our specific use case. It has achieved SOTA performance on common benchmarks, such as **Kinetics-400** and **AVA v2.2**, and offers a good trade-off between the hardware requirements and the model accuracy. Additionally, this work was presented at the CVPR'2023 conference.
 
@@ -118,7 +118,7 @@ After preprocessing, you can start training the model. The app **[Train Mouse Ac
 
 #### How to Train
 
-To start training, run the app **[Train Mouse Action Recognition Model](../../../../../../supervisely-ecosystem/mouse-action-recognition/supervisely_integration/train)** in Supervisely and select the **Training Data** project that had been created after preprocessing. You don't need the mouse detector for training, so you can stop the app **Serve RT-DETRv2** that you used for preprocessing to save GPU resources. Follow the instructions in the training app, specify the training parameters, and run the training. The training may take several hours or even days, depending on the amount of data and hyperparameters you choose. You can monitor the training process in the app.
+To start training, run the app **[Train Mouse Action Recognition Model](https://ecosystem.supervisely.com/apps/mouse-action-recognition/supervisely_integration/train)** in Supervisely and select the **Training Data** project that had been created after preprocessing. You don't need the mouse detector for training, so you can stop the app **Serve RT-DETRv2** that you used for preprocessing to save GPU resources. Follow the instructions in the training app, specify the training parameters, and run the training. The training may take several hours or even days, depending on the amount of data and hyperparameters you choose. You can monitor the training process in the app.
 
 **Notes on hyperparameters:**
 
@@ -138,7 +138,7 @@ Now, you can use the trained model for inference. As long as MVD is limited to s
 
 #### How to Run Inference
 
-Launch the app **[Mouse Action Recognition](../../../../../../supervisely-ecosystem/mouse-action-recognition/src/app)** providing the paths to your trained MVD model and the mouse detector in Team Files. The app will load the models and run inference on the input project or dataset. After the inference is done, it will create a new project with the same structure as the input project, but with predictions for each video. The annotations will include predicted bounding boxes of a mouse and action intervals. The predicted action classes are represented as tags on the timeline in the labeling tool. The inference may take several hours for long-video datasets.
+Launch the app **[Mouse Action Recognition](https://ecosystem.supervisely.com/apps/mouse-action-recognition/src/app)** providing the paths to your trained MVD model and the mouse detector in Team Files. The app will load the models and run inference on the input project or dataset. After the inference is done, it will create a new project with the same structure as the input project, but with predictions for each video. The annotations will include predicted bounding boxes of a mouse and action intervals. The predicted action classes are represented as tags on the timeline in the labeling tool. The inference may take several hours for long-video datasets.
 
 #### Inference in Docker
 
