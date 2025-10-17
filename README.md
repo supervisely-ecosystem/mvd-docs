@@ -17,7 +17,7 @@ The Supervisely Team focused on finding the optimal solution that can be used to
 
 1. **Import video files** to the Supervisely platform. For already annotated videos, the initial annotations were made outside of Supervisely in a specific custom format, so the Supervisely Team developed a [custom script](https://github.com/supervisely-ecosystem/mouse_project_upload_videos_with_xlsx) that can be used to convert and import these annotations.
 2. **Train Object Detection model** to detect mice using [RT-DETRv2](https://ecosystem.supervisely.com/apps/rt-detrv2/supervisely_integration/train) model. We've generated a dataset using pretrained models before training the mouse detector. The model was evaluated with our [Evaluation Benchmark](https://docs.supervisely.com/neural-networks/model-evaluation-benchmark/object-detection).
-3. **Preprocess video before training** the Action Recognition model using the [Preprocess Data for Mouse Action Recognition](../../../../supervisely-ecosystem/preprocess-data-for-mouse-project) app. The preprocessing includes mouse detection, video frames extraction, trimming videos into segments, and class balancing.
+3. **Preprocess video before training** the Action Recognition model using the [Preprocess Data for Mouse Action Recognition](https://ecosystem.supervisely.com/apps/preprocess-data-for-mouse-project) app. The preprocessing includes mouse detection, video frames extraction, trimming videos into segments, and class balancing.
 4. **Train the Action Recognition model (MVD)** using the [Train Mouse Action Recognition Model](https://ecosystem.supervisely.com/apps/mouse-action-recognition/supervisely_integration/train) app. We've chosen the **MVD** architecture as the best choice for our specific use case. It has achieved SOTA performance on common benchmarks and was presented at the CVPR 2023 conference.
 5. **Evaluation Benchmark** is performed on the test dataset to assess the model's performance. The evaluation includes metrics such as precision, recall, and F1-score.
 6. **Inference** is performed on new videos using the trained MVD model and the mouse detector. The inference is done using the [Mouse Action Recognition](https://ecosystem.supervisely.com/apps/mouse-action-recognition/src/app) app, which processes the videos and predicts the mouse actions.
@@ -43,7 +43,7 @@ The first step of the solving the task is to import the video files into the Sup
 2. Choose the **Videos** option in the Type of project section, and click **Create**.
 3. Next, you can drag and drop your video files into the project.
 
-If you need to import files from a remote server or from a Cloud Storage, you can use apps like [Import Videos from Cloud Storage](../../../../supervisely-ecosystem/import-videos-from-cloud-storage) or [Remote Import](../../../../supervisely-ecosystem/remote-import).
+If you need to import files from a remote server or from a Cloud Storage, you can use apps like [Import Videos from Cloud Storage](../../../../supervisely-ecosystem/import-videos-from-cloud-storage) or [Remote Import](https://ecosystem.supervisely.com/apps/remote-import).
 
 For this case, the annotations were made in a specific custom format outside of Supervisely platform, so the Supervisely Team developed a [custom script](https://github.com/supervisely-ecosystem/mouse-tests) that can be used to convert and import those annotations into Supervisely platform. The script is written using Supervisely Python SDK and it's possible to implement any custom logic for various custom formats and even wrap this script into a [Supervisely App](https://developer.supervisely.com/app-development/basics/from-script-to-supervisely-app) for more convenient usage.
 
@@ -90,7 +90,7 @@ Navigate to the end of the segment (where the action ends) and click on the **Fl
 
 ### 3. Preprocessing
 
-When you have your data and annotations ready, you can start preprocessing your data for training. The preprocessing is done by the **[Preprocess Data for Mouse Action Recognition](../../../../supervisely-ecosystem/preprocess-data-for-mouse-project)** app in Supervisely and includes the following procedures:
+When you have your data and annotations ready, you can start preprocessing your data for training. The preprocessing is done by the **[Preprocess Data for Mouse Action Recognition](https://ecosystem.supervisely.com/apps/preprocess-data-for-mouse-project)** app in Supervisely and includes the following procedures:
 
 1. **Mouse detection**. We use a separate mouse detector that predicts bounding boxes around the mouse in each frame. We then crop videos to the bounding box of the mouse. This is done to reduce the amount of background noise and focus on the mouse itself, which helps the model learn better and more efficiently.
 2. **Trim videos into segments**. Videos are trimmed into short clips (~2-3 seconds each), which are manageable for the model. Each clip represents a particular mouse action. This is necessary because the MVD model has a context window limitation, it can't process large videos with a length of several minutes.
@@ -100,7 +100,7 @@ When you have your data and annotations ready, you can start preprocessing your 
 #### How to Preprocess Data
 
 1. Deploy a mouse detector. Run the app **[Serve RT-DETRv2](https://ecosystem.supervisely.com/apps/rt-detrv2/supervisely_integration/serve)** in Supervisely and deploy our custom model trained for mouse detection task.
-2. Run **[Preprocess Data for Mouse Action Recognition](../../../../supervisely-ecosystem/preprocess-data-for-mouse-project)** app in Supervisely, selecting the input project with your original videos and annotations. The input project may have a free structure with nested datasets, or without it.
+2. Run **[Preprocess Data for Mouse Action Recognition](https://ecosystem.supervisely.com/apps/preprocess-data-for-mouse-project)** app in Supervisely, selecting the input project with your original videos and annotations. The input project may have a free structure with nested datasets, or without it.
 3. Follow the instructions in the app. You will need to select the mouse detector you deployed in the first step, and specify the amount of video to train/test split. About 10 full-length videos should be enough for the test dataset.
 4. Run the preprocessing.
 
